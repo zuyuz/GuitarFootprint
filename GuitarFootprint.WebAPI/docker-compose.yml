@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+  api:
+    container_name: api
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    depends_on: 
+      - mssql
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://*:5000
+    ports:
+      - 5000:5000
