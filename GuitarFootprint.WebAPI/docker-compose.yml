@@ -1,4 +1,4 @@
-version: '2'
+version: '3.4'
 
 services:
   api:
@@ -7,9 +7,17 @@ services:
       context: .
       dockerfile: Dockerfile
     depends_on: 
-      - mssql
+      - db-server
     environment: 
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:5000
     ports:
       - 5000:5000
+  db-server:
+    image: postgres
+    restart: always
+    container_name: db-server
+    environment:
+      - POSTGRES_PASSWORD=password123
+    ports:
+      - 1400:1433

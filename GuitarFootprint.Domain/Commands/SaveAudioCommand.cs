@@ -1,11 +1,13 @@
 ﻿using System.IO;
 using System.Windows.Input;
-using CSharpFunctionalExtensions;
+using LanguageExt;
+using static LanguageExt.Prelude;
+using Unit = LanguageExt.Unit;
 using MediatR;
 
 namespace GuitarFootprint.Domain.Commands
 {
-    public class SaveAudioCommand : IRequest<Result>
+    public class SaveAudioCommand : IRequest<TryAsync<Unit>>
     {
         public SaveAudioCommand(string name, Stream stream)
         {

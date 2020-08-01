@@ -29,8 +29,7 @@ namespace GuitarFootprint.WebAPI.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> SaveFile(IFormFile uploadedFile,
-            [FromServices] IMediator mediator)
+        public async Task<IActionResult> SaveFile(IFormFile uploadedFile)
         {
             if (uploadedFile != null)
             {

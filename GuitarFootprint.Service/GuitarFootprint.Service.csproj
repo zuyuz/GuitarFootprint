@@ -12,11 +12,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="LanguageExt.Core" Version="3.4.15" />
     <PackageReference Include="MediatR" Version="8.0.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GuitarFootprint.Data.Abstraction\GuitarFootprint.Data.Abstraction.csproj" />
     <ProjectReference Include="..\GuitarFootprint.Domain\GuitarFootprint.Domain.csproj" />
   </ItemGroup>
 

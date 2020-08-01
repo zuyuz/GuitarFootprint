@@ -4,18 +4,27 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using CSharpFunctionalExtensions;
+using GuitarFootprint.Data.Abstraction.Interfaces;
 using GuitarFootprint.Domain.Commands;
+using LanguageExt;
 using MediatR;
+using static LanguageExt.Prelude;
+using Unit = LanguageExt.Unit;
 
 namespace GuitarFootprint.Service.Services
 {
-    public class SaveAudioCommandHandler : IRequestHandler<SaveAudioCommand, Result>
+    public class SaveAudioCommandHandler : IRequestHandler<SaveAudioCommand, TryAsync<Unit>>
     {
-        public async Task<Result> Handle(SaveAudioCommand request, CancellationToken cancellationToken)
-        {
+        private readonly IUnitOfWork _unitOfWork;
 
-            return Result.Success();
+        public SaveAudioCommandHandler(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
+        public Task<TryAsync<Unit>> Handle(SaveAudioCommand request, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(TryAsync(unit));
         }
     }
 }
