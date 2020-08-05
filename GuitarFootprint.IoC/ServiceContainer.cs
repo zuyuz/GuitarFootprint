@@ -2,6 +2,8 @@
 using GuitarFootprint.Data.Abstraction.Interfaces;
 using GuitarFootprint.Data.PostgreSQL;
 using GuitarFootprint.Data.PostgreSQL.Repositories;
+using GuitarFootprint.Service.Abstraction.Dxos;
+using GuitarFootprint.Service.Dxos;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -13,7 +15,7 @@ namespace GuitarFootprint.IoC
     {
         public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
         {
-            var assembly = AppDomain.CurrentDomain.Load("TransactionData.Service");
+            var assembly = AppDomain.CurrentDomain.Load("GuitarFootprint.Service");
             services.AddMediatR(assembly);
 
             services.AddDbContext<ApplicationContext>(options =>
@@ -28,6 +30,12 @@ namespace GuitarFootprint.IoC
             #region Unit of work
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            #endregion
+
+            #region Dxos
+
+            services.AddTransient<IAudioDxo, AudioDxo>();
 
             #endregion
         }

@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GuitarFootprint.Data\GuitarFootprint.Data.csproj" />
+    <ProjectReference Include="..\GuitarFootprint.Domain\GuitarFootprint.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

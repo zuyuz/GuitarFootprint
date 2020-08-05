@@ -8,6 +8,7 @@ namespace GuitarFootprint.Data.Entities
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
+        public DateTimeOffset CreatedOn { get; set; }
 
         public byte[] Content { get; set; }
     }

@@ -14,6 +14,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GuitarFootprint.Data.PostgreSQL\GuitarFootprint.Data.PostgreSQL.csproj" />
+    <ProjectReference Include="..\GuitarFootprint.Service.Abstraction\GuitarFootprint.Service.Abstraction.csproj" />
+    <ProjectReference Include="..\GuitarFootprint.Service\GuitarFootprint.Service.csproj" />
   </ItemGroup>
 
 </Project>

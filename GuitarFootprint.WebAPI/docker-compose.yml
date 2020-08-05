@@ -13,6 +13,7 @@ services:
       - ASPNETCORE_URLS=http://*:5000
     ports:
       - 5000:5000
+      - 5001:5001
   db-server:
     image: postgres
     restart: always

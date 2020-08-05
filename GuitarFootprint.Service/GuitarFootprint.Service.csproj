@@ -5,13 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Dxos\" />
     <Folder Include="Handlers\EventHandlers\" />
     <Folder Include="Handlers\QueryHandlers\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="5.1.1" />
     <PackageReference Include="LanguageExt.Core" Version="3.4.15" />
     <PackageReference Include="MediatR" Version="8.0.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
@@ -20,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\GuitarFootprint.Data.Abstraction\GuitarFootprint.Data.Abstraction.csproj" />
     <ProjectReference Include="..\GuitarFootprint.Domain\GuitarFootprint.Domain.csproj" />
+    <ProjectReference Include="..\GuitarFootprint.Service.Abstraction\GuitarFootprint.Service.Abstraction.csproj" />
   </ItemGroup>
 
 </Project>

@@ -7,7 +7,7 @@ using MediatR;
 
 namespace GuitarFootprint.Domain.Commands
 {
-    public class SaveAudioCommand : IRequest<TryAsync<Unit>>
+    public class SaveAudioCommand : IRequest<Unit>
     {
         public SaveAudioCommand(string name, Stream stream)
         {
