@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using GuitarFootprint.Domain.Commands;
+using GuitarFootprint.Domain.Queries;
 using LanguageExt;
 using LanguageExt.SomeHelp;
 using MediatR;
@@ -18,6 +19,8 @@ using SoundFingerprinting.Audio;
 using SoundFingerprinting.Builder;
 using SoundFingerprinting.Configuration;
 using SoundFingerprinting.InMemory;
+using static LanguageExt.Prelude;
+using Unit = LanguageExt.Unit;
 
 namespace GuitarFootprint.WebAPI.Controllers
 {
@@ -29,24 +32,21 @@ namespace GuitarFootprint.WebAPI.Controllers
         {
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public Task<IActionResult> GetAllFiles()
+        {
+            return TryAsync(QueryAsync(GetAllFilesQuery.CreateInstance()).Map(list => (IActionResult)Ok(list))).IfFail(exception => (IActionResult)BadRequest(exception.Message));
+        }
+
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> SaveFile(IFormFile uploadedFile)
         {
-            try
-            {
-                var stream = uploadedFile.OpenReadStream();
-                var task = CommandAsync(SaveAudioCommand.CreateInstance(uploadedFile.FileName, stream));
-                var result = await task;
-
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
+            var stream = uploadedFile.OpenReadStream();
+            return await TryAsync(CommandAsync(SaveAudioCommand.CreateInstance(uploadedFile.FileName, stream)).Map(list => (IActionResult)Ok(list)))
+                    .IfFail(exception => (IActionResult)BadRequest(exception.Message));
 
         }
-
     }
 }
