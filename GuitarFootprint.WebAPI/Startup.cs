@@ -5,7 +5,9 @@ using System.Reflection;
 using System.Threading.Tasks;
 using GuitarFootprint.Domain.Commands;
 using GuitarFootprint.IoC;
+using GuitarFootprint.Service.Hubs;
 using GuitarFootprint.Service.Services;
+using GuitarFootprint.WebAPI.ExtensionMethods;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -44,6 +46,9 @@ namespace GuitarFootprint.WebAPI
             });
 
             services.AddControllers();
+            services.AddTokenAuthentication(Configuration);
+
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,6 +75,15 @@ namespace GuitarFootprint.WebAPI
                 c.RoutePrefix = string.Empty;
             });
 
+            app.UseFileServer();
+            app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.UseEndpoints(routes =>
+            {
+                routes.MapHub<NotificationHub>("/notification");
+            });
         }
     }
 }
