@@ -1,11 +1,13 @@
 ﻿using System;
 using GuitarFootprint.Data.Entities;
 using GuitarFootprint.Data.EntityConfigurations;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace GuitarFootprint.Data.PostgreSQL
 {
-    public class ApplicationContext : DbContext
+    public class ApplicationContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
     {
         public DbSet<Audio> Audio { get; set; }
 

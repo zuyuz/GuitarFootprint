@@ -1,5 +1,6 @@
 ﻿using System;
 using GuitarFootprint.Data.Abstraction.Interfaces;
+using GuitarFootprint.Data.Entities;
 using GuitarFootprint.Data.PostgreSQL;
 using GuitarFootprint.Data.PostgreSQL.Repositories;
 using GuitarFootprint.Service.Abstraction.Dxos;
@@ -20,6 +21,9 @@ namespace GuitarFootprint.IoC
 
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddIdentity<ApplicationUser, ApplicationRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ApplicationContext>();
 
             #region Repositories
 
