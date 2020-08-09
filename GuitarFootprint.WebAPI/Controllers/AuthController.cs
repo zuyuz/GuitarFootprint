@@ -2,27 +2,40 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GuitarFootprint.Domain.Commands;
 using GuitarFootprint.Service.Services;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using static LanguageExt.Prelude;
+using Unit = LanguageExt.Unit;
 
 namespace GuitarFootprint.WebAPI.Controllers
 {
+    [Route("auth")]
     public class AuthController : ApiControllerBase
     {  
-        private IConfiguration _config;
-
         public AuthController(IMediator mediator) : base(mediator)
         {
         }
 
-        [HttpGet]
-        public string GetRandomToken()
+        [HttpPost("register")]
+        [AllowAnonymous]
+        public async Task<IActionResult> RegisterUser([FromBody] RegisterUserCommand command)
         {
-            var jwt = new JwtService(_config);
-            var token = jwt.GenerateSecurityToken("fake@email.com");
-            return token;
+            return await TryAsync(CommandAsync(command))
+                .Map(list => (IActionResult) Ok(list))
+                .IfFail(exception => (IActionResult) BadRequest(exception.Message));
+        }
+
+        [HttpPost("signin")]
+        [AllowAnonymous]
+        public async Task<IActionResult> SignIn([FromBody] SignInCommand command)
+        {
+            return await TryAsync(CommandAsync(command))
+                .Map(list => (IActionResult)Ok(list))
+                .IfFail(exception => (IActionResult) BadRequest(exception.Message));
         }
     }
 }

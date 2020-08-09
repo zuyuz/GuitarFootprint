@@ -26,6 +26,7 @@ namespace GuitarFootprint.WebAPI.Controllers
 {
     [Route("audio-fingerprint")]
     [ApiController]
+    [Authorize]
     public class AudioFingerprintController : ApiControllerBase
     {
         public AudioFingerprintController(IMediator mediator) : base(mediator)
@@ -33,14 +34,12 @@ namespace GuitarFootprint.WebAPI.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public Task<IActionResult> GetAllFiles()
         {
             return TryAsync(QueryAsync(GetAllFilesQuery.CreateInstance()).Map(list => (IActionResult)Ok(list))).IfFail(exception => (IActionResult)BadRequest(exception.Message));
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public async Task<IActionResult> SaveFile(IFormFile uploadedFile)
         {
             var stream = uploadedFile.OpenReadStream();

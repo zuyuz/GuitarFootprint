@@ -4,11 +4,13 @@ using LanguageExt;
 using static LanguageExt.Prelude;
 using Unit = LanguageExt.Unit;
 using MediatR;
+using Newtonsoft.Json;
 
 namespace GuitarFootprint.Domain.Commands
 {
     public class SaveAudioCommand : IRequest<Unit>
     {
+        [JsonConstructor]
         public SaveAudioCommand(string name, Stream stream)
         {
             Name = name;

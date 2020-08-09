@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using GuitarFootprint.Service.Abstraction.Manager;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 namespace GuitarFootprint.Service.Hubs
 {
+    [Authorize]
     public class NotificationHub : Hub
     {
         private readonly IConnectionManager _connectionManager;
